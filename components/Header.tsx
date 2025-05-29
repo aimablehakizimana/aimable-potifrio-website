@@ -1,27 +1,27 @@
+
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { NAV_LINKS, MenuIcon, XIcon, DEFAULT_PROFILE_PIC } from '../constants';
+import { NAV_LINKS, MenuIcon, XIcon, STATIC_PROFILE_PIC_URL } from '../constants';
 import { Page } from '../types';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Profile picture is now constant, directly using DEFAULT_PROFILE_PIC
-  // No need for state or effect to load from localStorage or listen to events
-
   return (
     <header className="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <NavLink to="/" className="flex items-center space-x-3 text-3xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
-            <img 
-              src={DEFAULT_PROFILE_PIC} 
-              alt="Profile" 
-              className="w-10 h-10 rounded-full border-2 border-cyan-600 object-cover" 
+          <NavLink to="/" className="flex items-center group">
+            <img
+              src={STATIC_PROFILE_PIC_URL}
+              alt="H. Aimable Profile Picture"
+              className="w-10 h-10 rounded-full mr-3 border-2 border-cyan-600 group-hover:border-cyan-400 transition-colors"
             />
-            <span>H. Aimable</span>
+            <span className="text-3xl font-bold text-cyan-400 group-hover:text-cyan-300 transition-colors">
+              H. Aimable
+            </span>
           </NavLink>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-6">
             {NAV_LINKS.map((link) => (
@@ -29,10 +29,9 @@ const Header: React.FC = () => {
                 key={link.name}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-cyan-500 text-white'
-                      : 'text-slate-300 hover:bg-slate-700 hover:text-white'
+                  `px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-slate-300 hover:bg-slate-700 hover:text-white'
                   }`
                 }
               >
@@ -47,6 +46,7 @@ const Header: React.FC = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 p-2 rounded-md"
               aria-label="Open main menu"
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <XIcon /> : <MenuIcon />}
             </button>
@@ -64,10 +64,9 @@ const Header: React.FC = () => {
                 to={link.path}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    isActive
-                      ? 'bg-cyan-500 text-white'
-                      : 'text-slate-300 hover:bg-slate-700 hover:text-white'
+                  `block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive
+                    ? 'bg-cyan-500 text-white'
+                    : 'text-slate-300 hover:bg-slate-700 hover:text-white'
                   }`
                 }
               >

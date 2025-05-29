@@ -1,17 +1,18 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-// FileUpload and DEFAULT_PROFILE_PIC related imports for profile picture are removed
-// as the profile picture is now constant.
+import { STATIC_PROFILE_PIC_URL } from '../constants';
 
 const HomePage: React.FC = () => {
-  // State and handlers for profile picture upload have been removed.
-
   return (
-    <div className="min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center px-4 py-16 relative z-10">
-      <div className="max-w-3xl w-full">
-        {/* Profile picture upload section has been removed */}
-        
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 mt-12 md:mt-0"> {/* Added margin top for spacing */}
+    <div className="min-h-[calc(100vh-10rem)] flex items-center justify-center text-center px-4 py-16 relative z-10">
+      <div className="max-w-3xl flex flex-col items-center">
+        <img
+          src={STATIC_PROFILE_PIC_URL}
+          alt="H. Aimable Profile"
+          className="w-36 h-36 md:w-48 md:h-48 rounded-full mb-8 border-4 border-cyan-500 shadow-xl object-cover"
+        />
+        <h1 className="text-5xl md:text-7xl font-bold mb-6">
           <span className="block text-slate-100">Hello, I'm</span>
           <span className="block text-cyan-400 mt-2">H. Aimable</span>
         </h1>

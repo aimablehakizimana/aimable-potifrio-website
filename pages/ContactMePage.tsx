@@ -2,10 +2,15 @@ import React from 'react';
 import { SOCIAL_LINKS, LocationIcon } from '../constants';
 
 const ContactMePage: React.FC = () => {
-  const emailLink = SOCIAL_LINKS.find(link => link.name === 'Email');
-  const linkedInLink = SOCIAL_LINKS.find(link => link.name === 'LinkedIn');
-  const githubLink = SOCIAL_LINKS.find(link => link.name === 'GitHub');
-  const facebookLink = SOCIAL_LINKS.find(link => link.name === 'Facebook');
+  const contactMethods = [
+    { name: 'Email', label: 'Email', transformUrl: (url: string) => url.replace('mailto:', '') },
+    { name: 'Phone', label: 'Phone', transformUrl: (url: string) => url.replace('tel:', '') },
+    { name: 'WhatsApp', label: 'WhatsApp', transformUrl: (url: string) => url.replace('https://wa.me/', '+') },
+    { name: 'LinkedIn', label: 'LinkedIn Profile', transformUrl: () => 'View Profile' },
+    { name: 'GitHub', label: 'GitHub Profile', transformUrl: () => 'View Profile' },
+    { name: 'Instagram', label: 'Instagram Profile', transformUrl: () => 'View Profile' },
+    { name: 'Facebook', label: 'Facebook Profile', transformUrl: () => 'View Profile' },
+  ];
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -14,65 +19,40 @@ const ContactMePage: React.FC = () => {
         <p className="text-lg text-slate-300 text-center mb-8">
           I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out!
         </p>
-        
+
         <div className="space-y-6">
-          {emailLink && (
-            <div className="flex items-center p-4 bg-slate-700/50 rounded-lg">
-              <div className="text-cyan-400 mr-4 shrink-0">{emailLink.icon}</div>
-              <div>
-                <h4 className="font-semibold text-slate-200">Email</h4>
-                <a href={emailLink.url} className="text-sky-400 hover:text-sky-300 break-all">
-                  {emailLink.url.replace('mailto:', '')}
-                </a>
+          {contactMethods.map(method => {
+            const linkInfo = SOCIAL_LINKS.find(link => link.name === method.name);
+            if (!linkInfo) return null;
+
+            return (
+              <div key={method.name} className="flex items-center p-4 bg-slate-700/50 rounded-lg">
+                <div className="text-cyan-400 mr-4 shrink-0">{linkInfo.icon}</div>
+                <div>
+                  <h4 className="font-semibold text-slate-200">{method.name}</h4>
+                  <a
+                    href={linkInfo.url}
+                    className="text-sky-400 hover:text-sky-300 break-all"
+                    target={linkInfo.url.startsWith('http') ? '_blank' : undefined}
+                    rel={linkInfo.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
+                    {method.transformUrl(linkInfo.url)}
+                  </a>
+                  {method.name === 'Facebook' && <span className="text-xs text-slate-500 block">(TRIXY Aimable)</span>}
+                </div>
               </div>
-            </div>
-          )}
-
-          {linkedInLink && (
-             <div className="flex items-center p-4 bg-slate-700/50 rounded-lg">
-                <div className="text-cyan-400 mr-4 shrink-0">{linkedInLink.icon}</div>
-                <div>
-                    <h4 className="font-semibold text-slate-200">LinkedIn</h4>
-                    <a href={linkedInLink.url} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
-                        View Profile
-                    </a>
-                </div>
-            </div>
-          )}
-
-          {githubLink && (
-             <div className="flex items-center p-4 bg-slate-700/50 rounded-lg">
-                <div className="text-cyan-400 mr-4 shrink-0">{githubLink.icon}</div>
-                <div>
-                    <h4 className="font-semibold text-slate-200">GitHub</h4>
-                    <a href={githubLink.url} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
-                        View Profile (aimablehakizimana)
-                    </a>
-                </div>
-            </div>
-          )}
-
-          {facebookLink && (
-             <div className="flex items-center p-4 bg-slate-700/50 rounded-lg">
-                <div className="text-cyan-400 mr-4 shrink-0">{facebookLink.icon}</div>
-                <div>
-                    <h4 className="font-semibold text-slate-200">Facebook</h4>
-                    <a href={facebookLink.url} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300">
-                        Find me (Trixy Aimable)
-                    </a>
-                </div>
-            </div>
-          )}
+            );
+          })}
 
           <div className="flex items-start p-4 bg-slate-700/50 rounded-lg">
-              <div className="text-cyan-400 mr-4 mt-1 shrink-0"><LocationIcon /></div>
-              <div>
-                  <h4 className="font-semibold text-slate-200">Location</h4>
-                  <p className="text-slate-300">
-                    Karizinge Village, Kabuye Cell, Gashora Sector, <br/>
-                    Bugesera District, Eastern Province, Rwanda
-                  </p>
-              </div>
+            <div className="text-cyan-400 mr-4 mt-1 shrink-0"><LocationIcon /></div>
+            <div>
+              <h4 className="font-semibold text-slate-200">Location</h4>
+              <p className="text-slate-300">
+                Karizinge Village, Kabuye Cell, Gashora Sector, <br />
+                Bugesera District, Eastern Province, Rwanda
+              </p>
+            </div>
           </div>
         </div>
 
