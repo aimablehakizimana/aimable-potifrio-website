@@ -8,11 +8,11 @@ interface FileUploadProps {
   accept?: string;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ 
-  onFileSelect, 
+const FileUpload: React.FC<FileUploadProps> = ({
+  onFileSelect,
   currentImageUrl,
   label = "Upload Image",
-  accept = "image/*" 
+  accept = "image/*"
 }) => {
   const [preview, setPreview] = useState<string | null>(currentImageUrl || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -41,16 +41,16 @@ const FileUpload: React.FC<FileUploadProps> = ({
   return (
     <div className="flex flex-col items-center space-y-4">
       {preview && (
-        <img 
-          src={preview} 
-          alt="Preview" 
-          className="w-32 h-32 object-cover rounded-full border-2 border-cyan-500 shadow-lg" 
+        <img
+          src={preview}
+          alt="Preview"
+          className="w-32 h-32 object-cover rounded-full border-2 border-cyan-500 shadow-lg"
         />
       )}
       {!preview && (
-         <div className="w-32 h-32 bg-slate-700 rounded-full border-2 border-slate-600 flex items-center justify-center text-slate-400 text-sm">
-            No Image
-         </div>
+        <div className="w-32 h-32 bg-slate-700 rounded-full border-2 border-slate-600 flex items-center justify-center text-slate-400 text-sm">
+          No Image
+        </div>
       )}
       <input
         type="file"

@@ -1,26 +1,13 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { NAV_LINKS, MenuIcon, XIcon, DEFAULT_PROFILE_PIC } from '../constants';
 import { Page } from '../types';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentProfilePic, setCurrentProfilePic] = useState<string>(DEFAULT_PROFILE_PIC);
 
-  useEffect(() => {
-    const updateProfilePic = () => {
-      const storedPic = localStorage.getItem('profilePicture');
-      setCurrentProfilePic(storedPic || DEFAULT_PROFILE_PIC);
-    };
-
-    updateProfilePic(); // Initial load
-
-    window.addEventListener('profilePictureChanged', updateProfilePic);
-    return () => {
-      window.removeEventListener('profilePictureChanged', updateProfilePic);
-    };
-  }, []);
+  // Profile picture is now constant, directly using DEFAULT_PROFILE_PIC
+  // No need for state or effect to load from localStorage or listen to events
 
   return (
     <header className="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-lg">
@@ -28,7 +15,7 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-20">
           <NavLink to="/" className="flex items-center space-x-3 text-3xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
             <img 
-              src={currentProfilePic} 
+              src={DEFAULT_PROFILE_PIC} 
               alt="Profile" 
               className="w-10 h-10 rounded-full border-2 border-cyan-600 object-cover" 
             />

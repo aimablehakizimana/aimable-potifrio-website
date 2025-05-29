@@ -1,29 +1,15 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SOCIAL_LINKS, LocationIcon, DEFAULT_PROFILE_PIC } from '../constants';
 
 const Footer: React.FC = () => {
-  const [currentProfilePic, setCurrentProfilePic] = useState<string>(DEFAULT_PROFILE_PIC);
-
-  useEffect(() => {
-    const updateProfilePic = () => {
-      const storedPic = localStorage.getItem('profilePicture');
-      setCurrentProfilePic(storedPic || DEFAULT_PROFILE_PIC);
-    };
-
-    updateProfilePic(); // Initial load
-
-    window.addEventListener('profilePictureChanged', updateProfilePic);
-    return () => {
-      window.removeEventListener('profilePictureChanged', updateProfilePic);
-    };
-  }, []);
+  // Profile picture is now constant, directly using DEFAULT_PROFILE_PIC
+  // No need for state or effect to load from localStorage or listen to events
 
   return (
     <footer className="bg-slate-950/50 border-t border-slate-700 text-slate-400 py-12 mt-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <img 
-          src={currentProfilePic} 
+          src={DEFAULT_PROFILE_PIC} 
           alt="Profile" 
           className="w-20 h-20 rounded-full border-2 border-cyan-500 object-cover mx-auto mb-6 shadow-lg" 
         />
